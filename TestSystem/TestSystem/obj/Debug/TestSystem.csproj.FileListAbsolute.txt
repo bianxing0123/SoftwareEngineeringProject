@@ -1,0 +1,10 @@
+E:\SoftwareEngineeringProject\TestSystem\TestSystem\bin\Debug\TestSystem.exe.config
+E:\SoftwareEngineeringProject\TestSystem\TestSystem\bin\Debug\TestSystem.exe
+E:\SoftwareEngineeringProject\TestSystem\TestSystem\bin\Debug\TestSystem.pdb
+E:\SoftwareEngineeringProject\TestSystem\TestSystem\obj\Debug\TestSystem.csprojAssemblyReference.cache
+E:\SoftwareEngineeringProject\TestSystem\TestSystem\obj\Debug\TestSystem.Form1.resources
+E:\SoftwareEngineeringProject\TestSystem\TestSystem\obj\Debug\TestSystem.Properties.Resources.resources
+E:\SoftwareEngineeringProject\TestSystem\TestSystem\obj\Debug\TestSystem.csproj.GenerateResource.cache
+E:\SoftwareEngineeringProject\TestSystem\TestSystem\obj\Debug\TestSystem.csproj.CoreCompileInputs.cache
+E:\SoftwareEngineeringProject\TestSystem\TestSystem\obj\Debug\TestSystem.exe
+E:\SoftwareEngineeringProject\TestSystem\TestSystem\obj\Debug\TestSystem.pdb
