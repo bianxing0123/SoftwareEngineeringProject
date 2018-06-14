@@ -1,0 +1,10 @@
+D:\学习\软件工程\ExamSystem\ExamSystem\bin\Debug\ExamSystem.exe
+D:\学习\软件工程\ExamSystem\ExamSystem\bin\Debug\ExamSystem.pdb
+D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.Form1.resources
+D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.Properties.Resources.resources
+D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.csproj.GenerateResource.Cache
+D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.exe
+D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.pdb
+D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.registe.resources
+D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.csprojResolveAssemblyReference.cache
+D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.user.resources
