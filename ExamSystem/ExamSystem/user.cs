@@ -41,6 +41,7 @@ namespace ExamSystem
         }
 
         string ID = "";
+        string NAME = "";
         int minute = 60;
         int second = 0;
         bool ExamEnd = false;
@@ -86,7 +87,8 @@ namespace ExamSystem
             SqlDataAdapter sda = new SqlDataAdapter("Select Name From student where ID = '"+ID+"'", mycon);
             DataSet Ds = new DataSet();
             sda.Fill(Ds, "student");
-            toolStripLabel2.Text = "姓名：" + Ds.Tables[0].Rows[0][0].ToString().Trim();
+            NAME = Ds.Tables[0].Rows[0][0].ToString().Trim();
+            toolStripLabel2.Text = "姓名：" + NAME;
             选项A.Visible = true;
             选项B.Visible = true;
             选项C.Visible = true;
@@ -105,6 +107,11 @@ namespace ExamSystem
             选项D.Enabled = false;
             正确.Enabled = false;
             错误.Enabled = false;
+
+            for (int i = 0; i < 25; i++)
+            {
+                RChoice[i] = new res(1,"",1);
+            }
         }
 
         
@@ -137,8 +144,10 @@ namespace ExamSystem
             second--;
             if (ExamEnd == true)
             {
-                timer1.Stop();
+                timer1.Stop(); 
                 MessageBox.Show("考试时间结束，试卷已提交");
+                交卷_Click(交卷, new EventArgs());
+               
             }
         }
 
@@ -202,7 +211,7 @@ namespace ExamSystem
                 aryjudge.Sort();
 
                 //随机填空题id存入List
-                SqlDataAdapter sda2 = new SqlDataAdapter("Select * From filling where subject = '" + comboBox1.Text + "'", mycon);
+                SqlDataAdapter sda2 = new SqlDataAdapter("Select * From filling where subject = '" + comboBox1.Text.Trim() + "'", mycon);
                 DataSet Ds2 = new DataSet();
                 sda2.Fill(Ds2, "filling");
                 while (aryfilling.Count != 5)
@@ -260,7 +269,7 @@ namespace ExamSystem
             //获取填空题题号,答案与数据库中id对象
             else if (QNum < 25)
             {
-                answer = textBox1.Text;
+                answer = textBox1.Text.Trim();
                 RChoice[QNum] = new res(QNum + 1, answer, aryfilling[QNum - 20]);
                 
             }
@@ -291,7 +300,17 @@ namespace ExamSystem
                 正确.Visible = false;
                 错误.Visible = false;
                 textBox1.Visible = false;
-                
+                if (RChoice[QNum].getans() != "")
+                {
+                    if (RChoice[QNum].getans() == "A")
+                        选项A.Checked = true;
+                    if (RChoice[QNum].getans() == "B")
+                        选项B.Checked = true;
+                    if (RChoice[QNum].getans() == "C")
+                        选项C.Checked = true;
+                    if (RChoice[QNum].getans() == "D")
+                        选项D.Checked = true;
+                }
             }
             //显示下一道判断题
             else if (QNum < 20)
@@ -307,12 +326,18 @@ namespace ExamSystem
                 正确.Visible = true;
                 错误.Visible = true;
                 textBox1.Visible = false;
-                
+                if (RChoice[QNum].getans() != "")
+                {
+                    if (RChoice[QNum].getans() == "true")
+                        正确.Checked = true;
+                    if (RChoice[QNum].getans() == "false")
+                        错误.Checked = true;
+                }
             }
             //显示下一道填空题
             else if (QNum < 25)
             {
-                SqlDataAdapter da = new SqlDataAdapter("Select * From filling where subject = '" + comboBox1.Text + "' and id = '" + aryjudge[QNum - 20] + "'", mycon);
+                SqlDataAdapter da = new SqlDataAdapter("Select * From filling where subject = '" + comboBox1.Text.Trim() + "' and id = '" + aryfilling[QNum - 20] + "'", mycon);
                 DataSet ds = new DataSet();
                 da.Fill(ds, "filling");
                 label1.Text = (QNum + 1).ToString() + "." + ds.Tables[0].Rows[0][2].ToString().Trim();
@@ -323,7 +348,10 @@ namespace ExamSystem
                 正确.Visible = false;
                 错误.Visible = false;
                 textBox1.Visible = true;
-                
+                if (RChoice[QNum].getans() != "")
+                {
+                    textBox1.Text = RChoice[QNum].getans();
+                }
             }
             foreach (Control cc in groupBox1.Controls)
             {               
@@ -394,7 +422,7 @@ namespace ExamSystem
             //获取填空题题号,答案与数据库中id对象
             else if (QNum < 25)
             {
-                answer = textBox1.Text;
+                answer = textBox1.Text.Trim();
                 RChoice[QNum] = new res(QNum + 1, answer, aryfilling[QNum - 20]);
                 
             }
@@ -462,7 +490,7 @@ namespace ExamSystem
             //显示上一道填空题
             else if (QNum < 25)
             {
-                SqlDataAdapter da = new SqlDataAdapter("Select * From filling where subject = '" + comboBox1.Text + "' and id = '" + aryjudge[QNum - 20] + "'", mycon);
+                SqlDataAdapter da = new SqlDataAdapter("Select * From filling where subject = '" + comboBox1.Text.Trim() + "' and id = '" + aryjudge[QNum - 20] + "'", mycon);
                 DataSet ds = new DataSet();
                 da.Fill(ds, "filling");
                 label1.Text = (QNum + 1).ToString() + "." + ds.Tables[0].Rows[0][2].ToString().Trim();
@@ -534,44 +562,123 @@ namespace ExamSystem
 
         private void 交卷_Click(object sender, EventArgs e)
         {
-            int score = 100;
+            //若该题未点击上下题按钮则该题答案未录入，需手动
+            string answer1 = "";
+            //获取选择题题号,答案与数据库中id对象
+            if (QNum < 10)
+            {
+                if (选项A.Checked)
+                    answer1 = "A";
+                if (选项B.Checked)
+                    answer1 = "B";
+                if (选项C.Checked)
+                    answer1 = "C";
+                if (选项D.Checked)
+                    answer1 = "D";
+                RChoice[QNum] = new res(QNum + 1, answer1, arychoice[QNum]);
+
+            }
+            //获取判断题题号,答案与数据库中id对象
+            else if (QNum < 20)
+            {
+                if (正确.Checked)
+                    answer1 = "true";
+                if (错误.Checked)
+                    answer1 = "false";
+                RChoice[QNum] = new res(QNum + 1, answer1, aryjudge[QNum - 10]);
+
+            }
+            //获取填空题题号,答案与数据库中id对象
+            else if (QNum < 25)
+            {
+                answer1 = textBox1.Text.Trim();
+                RChoice[QNum] = new res(QNum + 1, answer1, aryfilling[QNum - 20]);
+
+            }
+            //计算分数
+            int score = 0;
             for (int i = 0; i < 10; i++)
             {
-                SqlDataAdapter da = new SqlDataAdapter("Select * From choice where subject = '" + comboBox1.Text + "' and id = '" + RChoice[i].getid() + "'", mycon);
+                SqlDataAdapter da = new SqlDataAdapter("Select * From choice where subject = '" + comboBox1.Text + "' and id = '" + arychoice[i] + "'", mycon);
                 DataSet ds = new DataSet();
                 da.Fill(ds, "choice");
-                if (RChoice[i].getans() != ds.Tables[0].Rows[0][7].ToString().Trim())
+                if (RChoice[i].getans().Trim() == ds.Tables[0].Rows[0][7].ToString().Trim())
                 {
-                    score -= 4;
+                    score += 4;
                 }
             }
             for (int i = 10; i < 20; i++)
             {
-                SqlDataAdapter da = new SqlDataAdapter("Select * From judge where subject = '" + comboBox1.Text + "' and id = '" + RChoice[i].getid() + "'", mycon);
+                SqlDataAdapter da = new SqlDataAdapter("Select * From judge where subject = '" + comboBox1.Text + "' and id = '" + aryjudge[i - 10] + "'", mycon);
                 DataSet ds = new DataSet();
                 da.Fill(ds, "judge");
-                if (RChoice[i].getans() != ds.Tables[0].Rows[0][3].ToString().Trim())
+                if (RChoice[i].getans().Trim() == ds.Tables[0].Rows[0][3].ToString().Trim())
                 {
-                    score -= 4;
+                    score += 4;
                 }
             }
             for (int i = 20; i < 25; i++)
             {
-                SqlDataAdapter da = new SqlDataAdapter("Select * From filling where subject = '" + comboBox1.Text + "' and id = '" + RChoice[i].getid() + "'", mycon);
+                SqlDataAdapter da = new SqlDataAdapter("Select * From filling where subject = '" + comboBox1.Text.Trim() + "' and id = '" + aryfilling[i - 20] + "'", mycon);
                 DataSet ds = new DataSet();
                 da.Fill(ds, "filling");
-                if (RChoice[i].getans() != ds.Tables[0].Rows[0][3].ToString().Trim())
+                if (RChoice[i].getans().Trim() == ds.Tables[0].Rows[0][3].ToString().Trim())
                 {
-                    score -= 4;
+                    score += 4;
                 }
             }
             MessageBox.Show("恭喜您！本次考试获得"+score+"分");
-            string str = "";
-            foreach (res n in RChoice)
+            //插入记录
+            string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            mycon.Open();
+            SqlCommand cmd = new SqlCommand("insert into score(ID, Name, subject,score,date) values ('" + ID + "', '" + NAME + "', '" + comboBox1.Text + "', '" + score+ "', '" + date + "')", mycon);
+            cmd.ExecuteNonQuery();
+            mycon.Close();
+
+            //导出试卷及标准答案
+            string myanswer = NAME+"的答案：\r\n";
+            int k = 1;
+            foreach (res s in RChoice)
             {
-                str +="题" +n.getnum()+" 我的答案:"+n.getans()+"id:"+n.getid()+"\n";
+                myanswer += k+"."+s.getans()+"\r\n";
+                k++;
             }
-            label1.Text = str;
+            string num = DateTime.Now.Millisecond.ToString();
+            string textname = comboBox1.Text + "试卷" + num;
+            string ExamPaper = "                         " + comboBox1.Text + "试题\r\n\r\n\r\n"+"一.选择题"+"\r\n";
+            string answer = "标准答案：\r\n";
+            for (int j = 0; j < 10; j++)
+            {
+                SqlDataAdapter da = new SqlDataAdapter("Select * From choice where subject = '" + comboBox1.Text + "' and id = '" + arychoice[j] + "'", mycon);
+                DataSet ds = new DataSet();
+                da.Fill(ds, "choice");
+                ExamPaper += (j + 1).ToString() + "." + ds.Tables[0].Rows[0][2].ToString().Trim() + "\r\n" + ds.Tables[0].Rows[0][3].ToString().Trim() + "\r\n" + ds.Tables[0].Rows[0][4].ToString().Trim() + "\r\n" + ds.Tables[0].Rows[0][5].ToString().Trim() + "\r\n" + ds.Tables[0].Rows[0][6].ToString().Trim() + "\r\n\r\n";
+                answer += (j + 1).ToString() + "." + ds.Tables[0].Rows[0][7].ToString().Trim()+" ";
+            }
+            answer += "\r\n";
+            ExamPaper +="\r\n"+"二.判断题" + "\r\n";
+            for (int j = 10; j < 20; j++)
+            {
+                SqlDataAdapter da = new SqlDataAdapter("Select * From judge where subject = '" + comboBox1.Text + "' and id = '" + aryjudge[j - 10] + "'", mycon);
+                DataSet ds = new DataSet();
+                da.Fill(ds, "judge");
+                ExamPaper += (j + 1).ToString() + "." + ds.Tables[0].Rows[0][2].ToString().Trim() + "\r\n\r\n";
+                answer += (j + 1).ToString() + "." + ds.Tables[0].Rows[0][3].ToString().Trim()+" ";
+            }
+            answer += "\r\n";
+            ExamPaper += "\r\n" + "三.填空题" + "\r\n";
+            for (int j = 20; j < 25; j++)
+            {
+                SqlDataAdapter da = new SqlDataAdapter("Select * From filling where subject = '" + comboBox1.Text + "' and id = '" + aryfilling[j - 20] + "'", mycon);
+                DataSet ds = new DataSet();
+                da.Fill(ds, "filling");
+                ExamPaper += (j + 1).ToString() + "." + ds.Tables[0].Rows[0][2].ToString().Trim() + "\r\n\r\n";
+                answer += (j + 1).ToString() + "." + ds.Tables[0].Rows[0][3].ToString().Trim() + " ";
+            }
+            ExamPaper += "\r\n" + answer;
+            ExamPaper += "\r\n" + myanswer; 
+            System.IO.File.WriteAllText("D:\\学习\\软件工程\\ExamSystem\\ExamSystem\\生成试卷\\"+textname+".txt",ExamPaper);
+            Application.Exit(); 
         }
 
     }

@@ -8,3 +8,13 @@ D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.pdb
 D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.registe.resources
 D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.csprojResolveAssemblyReference.cache
 D:\学习\软件工程\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.user.resources
+C:\Users\Hwh\Documents\GitHub\SoftwareEngineeringProject\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.exe
+C:\Users\Hwh\Documents\GitHub\SoftwareEngineeringProject\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.pdb
+C:\Users\Hwh\Documents\GitHub\SoftwareEngineeringProject\ExamSystem\ExamSystem\bin\Debug\ExamSystem.exe
+C:\Users\Hwh\Documents\GitHub\SoftwareEngineeringProject\ExamSystem\ExamSystem\bin\Debug\ExamSystem.pdb
+C:\Users\Hwh\Documents\GitHub\SoftwareEngineeringProject\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.csprojResolveAssemblyReference.cache
+C:\Users\Hwh\Documents\GitHub\SoftwareEngineeringProject\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.Form1.resources
+C:\Users\Hwh\Documents\GitHub\SoftwareEngineeringProject\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.Properties.Resources.resources
+C:\Users\Hwh\Documents\GitHub\SoftwareEngineeringProject\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.registe.resources
+C:\Users\Hwh\Documents\GitHub\SoftwareEngineeringProject\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.user.resources
+C:\Users\Hwh\Documents\GitHub\SoftwareEngineeringProject\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.csproj.GenerateResource.Cache
