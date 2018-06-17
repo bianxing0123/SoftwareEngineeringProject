@@ -71,15 +71,15 @@
             this.题目21 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.错误 = new System.Windows.Forms.RadioButton();
+            this.正确 = new System.Windows.Forms.RadioButton();
             this.选项D = new System.Windows.Forms.RadioButton();
             this.选项C = new System.Windows.Forms.RadioButton();
             this.选项B = new System.Windows.Forms.RadioButton();
             this.选项A = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.正确 = new System.Windows.Forms.RadioButton();
-            this.错误 = new System.Windows.Forms.RadioButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -502,6 +502,38 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "答题区";
             // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox1.Location = new System.Drawing.Point(158, 68);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(197, 29);
+            this.textBox1.TabIndex = 6;
+            // 
+            // 错误
+            // 
+            this.错误.AutoSize = true;
+            this.错误.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.错误.Location = new System.Drawing.Point(292, 67);
+            this.错误.Name = "错误";
+            this.错误.Size = new System.Drawing.Size(77, 23);
+            this.错误.TabIndex = 5;
+            this.错误.TabStop = true;
+            this.错误.Text = "fasle";
+            this.错误.UseVisualStyleBackColor = true;
+            // 
+            // 正确
+            // 
+            this.正确.AutoSize = true;
+            this.正确.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.正确.Location = new System.Drawing.Point(170, 67);
+            this.正确.Name = "正确";
+            this.正确.Size = new System.Drawing.Size(67, 23);
+            this.正确.TabIndex = 4;
+            this.正确.TabStop = true;
+            this.正确.Text = "true";
+            this.正确.UseVisualStyleBackColor = true;
+            // 
             // 选项D
             // 
             this.选项D.AutoSize = true;
@@ -575,38 +607,6 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(122, 24);
             this.comboBox1.TabIndex = 11;
-            // 
-            // 正确
-            // 
-            this.正确.AutoSize = true;
-            this.正确.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.正确.Location = new System.Drawing.Point(170, 67);
-            this.正确.Name = "正确";
-            this.正确.Size = new System.Drawing.Size(67, 23);
-            this.正确.TabIndex = 4;
-            this.正确.TabStop = true;
-            this.正确.Text = "true";
-            this.正确.UseVisualStyleBackColor = true;
-            // 
-            // 错误
-            // 
-            this.错误.AutoSize = true;
-            this.错误.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.错误.Location = new System.Drawing.Point(292, 67);
-            this.错误.Name = "错误";
-            this.错误.Size = new System.Drawing.Size(77, 23);
-            this.错误.TabIndex = 5;
-            this.错误.TabStop = true;
-            this.错误.Text = "fasle";
-            this.错误.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox1.Location = new System.Drawing.Point(158, 68);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(197, 29);
-            this.textBox1.TabIndex = 6;
             // 
             // user
             // 

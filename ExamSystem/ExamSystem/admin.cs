@@ -152,5 +152,40 @@ namespace ExamSystem
         {
             Application.Exit();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {//增加
+            if (flag == 1) 
+            {//题库
+                temp t = new temp(1);
+                t.ShowDialog();
+                showtiku();
+            }
+        }
+
+        private void admin_Load(object sender, EventArgs e)
+        {
+            this.Owner.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {//删除
+            if (flag == 1)
+            {//题库
+                temp t = new temp(2);
+                t.ShowDialog();
+                showtiku();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {//修改
+            if (flag == 1)
+            {//题库
+                temp t = new temp(3);
+                t.ShowDialog();
+                showtiku();
+            }
+        }
     }
 }

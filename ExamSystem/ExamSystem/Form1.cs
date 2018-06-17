@@ -35,11 +35,11 @@ namespace ExamSystem
         {
             try
             {
-                mycon.Open();                
+                mycon.Open();
                 SqlCommand cmd = mycon.CreateCommand();
-                cmd.CommandText = "SELECT * FROM student WHERE ID='" + textBox1.Text + "' and Password='" + textBox2.Text + "'";           
+                cmd.CommandText = "SELECT * FROM student WHERE ID='" + textBox1.Text + "' and Password='" + textBox2.Text + "'";
                 long islogin = Convert.ToInt64(cmd.ExecuteScalar());
-               
+
                 if (islogin > 0 && radioButton1.Checked)
                 {
                     MessageBox.Show("登录成功");
