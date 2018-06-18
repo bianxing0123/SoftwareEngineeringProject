@@ -34,3 +34,5 @@ D:\软工\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.admin.resources
 D:\软工\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.temp.resources
 D:\软工\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.xuanze.resources
 D:\软工\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.judge.resources
+D:\软工\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.student.resources
+D:\软工\ExamSystem\ExamSystem\obj\x86\Debug\ExamSystem.temp2.resources

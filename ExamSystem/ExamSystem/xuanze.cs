@@ -35,14 +35,25 @@ namespace ExamSystem
         private void button1_Click(object sender, EventArgs e)
         {
             mycon.Open();
-            string str="insert into choice(subject,id,question,keyA,keyB,keyC,keyD,answer) values('"
-                + textBox1.Text.ToString().Trim() + "','" + int.Parse(textBox2.Text.Trim()) + "','" + textBox3.Text.ToString().Trim() + "','"
-                + textBox4.Text.ToString().Trim() + "','" + textBox5.Text.ToString().Trim() + "','" + textBox6.Text.ToString().Trim() + "','"
-                + textBox7.Text.ToString().Trim() + "','" + textBox8.Text.ToString().Trim() + "')";
-            SqlCommand cmd = new SqlCommand(str,mycon);
-            cmd.ExecuteNonQuery();
-            mycon.Close();
-            this.Close();
+            SqlDataAdapter da = new SqlDataAdapter("select * from choice where id=" + int.Parse(textBox2.Text.Trim()), mycon);
+            DataSet ds = new DataSet();
+            da.Fill(ds, "choice");
+            if (ds.Tables["choice"].Rows.Count > 0)
+            {
+                MessageBox.Show("题号已存在");
+                mycon.Close();
+            }
+            else
+            {
+                string str = "insert into choice(subject,id,question,keyA,keyB,keyC,keyD,answer) values('"
+                    + textBox1.Text.ToString().Trim() + "','" + int.Parse(textBox2.Text.Trim()) + "','" + textBox3.Text.ToString().Trim() + "','"
+                    + textBox4.Text.ToString().Trim() + "','" + textBox5.Text.ToString().Trim() + "','" + textBox6.Text.ToString().Trim() + "','"
+                    + textBox7.Text.ToString().Trim() + "','" + textBox8.Text.ToString().Trim() + "')";
+                SqlCommand cmd = new SqlCommand(str, mycon);
+                cmd.ExecuteNonQuery();
+                mycon.Close();
+                this.Close();
+            }
         }
 
         private void xuanze_Load(object sender, EventArgs e)

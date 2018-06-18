@@ -631,9 +631,24 @@ namespace ExamSystem
             //插入记录
             string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             mycon.Open();
-            SqlCommand cmd = new SqlCommand("insert into score(ID, Name, subject,score,date) values ('" + ID + "', '" + NAME + "', '" + comboBox1.Text + "', '" + score+ "', '" + date + "')", mycon);
-            cmd.ExecuteNonQuery();
-            mycon.Close();
+            SqlDataAdapter da0 = new SqlDataAdapter("select * from score where ID=" + ID + " and subject='" + comboBox1.Text.ToString().Trim()+"'", mycon);
+            DataSet ds0 = new DataSet();
+            da0.Fill(ds0,"score");
+            if (ds0.Tables["score"].Rows.Count == 0)
+            {
+                SqlCommand cmd = new SqlCommand("insert into score(ID, Name, subject,score,date) values ('" + ID + "', '" + NAME + "', '" + comboBox1.Text + "', '" + score + "', '" + date + "')", mycon);
+                cmd.ExecuteNonQuery();
+                mycon.Close();
+            }
+            else
+            {
+                if (score > int.Parse(ds0.Tables["score"].Rows[0].ItemArray[3].ToString().Trim()))
+                {
+                    SqlCommand cmd = new SqlCommand("update score set score=" + score + " where ID=" + ID + " and subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
+                    cmd.ExecuteNonQuery();
+                    mycon.Close();
+                }
+            }
 
             //导出试卷及标准答案
             string myanswer = NAME+"的答案：\r\n";

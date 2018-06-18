@@ -72,11 +72,23 @@
     <Compile Include="registe.Designer.cs">
       <DependentUpon>registe.cs</DependentUpon>
     </Compile>
+    <Compile Include="student.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="student.Designer.cs">
+      <DependentUpon>student.cs</DependentUpon>
+    </Compile>
     <Compile Include="temp.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="temp.Designer.cs">
       <DependentUpon>temp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="temp2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="temp2.Designer.cs">
+      <DependentUpon>temp2.cs</DependentUpon>
     </Compile>
     <Compile Include="xuanze.cs">
       <SubType>Form</SubType>
@@ -111,8 +123,14 @@
     <EmbeddedResource Include="registe.resx">
       <DependentUpon>registe.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="student.resx">
+      <DependentUpon>student.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="temp.resx">
       <DependentUpon>temp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="temp2.resx">
+      <DependentUpon>temp2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="xuanze.resx">
       <DependentUpon>xuanze.cs</DependentUpon>

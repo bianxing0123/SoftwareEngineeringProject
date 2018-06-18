@@ -48,12 +48,12 @@ namespace ExamSystem
                     this.Close();
                     mycon.Close();
                 }
-                if (islogin > 0 && radioButton2.Checked)
+                else if (islogin > 0 && radioButton2.Checked)
                 {
                     MessageBox.Show("管理员用户名或密码错误!");
                     mycon.Close();
                 }
-                if (textBox1.Text == "admin" && textBox1.Text == "admin" && radioButton2.Checked)
+                else if (textBox1.Text == "admin" && textBox1.Text == "admin" && radioButton2.Checked)
                 {
                     MessageBox.Show("管理员登录成功");
                     admin form2 = new admin();
@@ -61,12 +61,12 @@ namespace ExamSystem
                     this.Close();
                     mycon.Close();
                 }
-                if (!(radioButton1.Checked || radioButton2.Checked))
+                else if (!(radioButton1.Checked || radioButton2.Checked))
                 {
                     MessageBox.Show("请选择用户类型！");
                     mycon.Close();
                 }
-                if (islogin == 0 && (radioButton1.Checked || radioButton2.Checked))
+                else if (islogin == 0 && (radioButton1.Checked || radioButton2.Checked))
                 {
                     MessageBox.Show("用户名或密码错误！请重新输入");
                     mycon.Close();

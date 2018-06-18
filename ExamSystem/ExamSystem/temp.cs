@@ -36,37 +36,46 @@ namespace ExamSystem
             {
                 if (comboBox2.Text.ToString().Trim() == "选择题")
                 {
-                    xuanze x = new xuanze(comboBox1.Text, comboBox2.Text);
-                    x.ShowDialog(this);
-                    this.Close();
+                        xuanze x = new xuanze(comboBox1.Text, comboBox2.Text);
+                        x.ShowDialog(this);
+                        this.Close();
                 }
                 if (comboBox2.Text.ToString().Trim() == "判断题")
                 {
-                    judge j = new judge(1,comboBox1.Text.ToString().Trim());
-                    j.ShowDialog(this);
-                    this.Close();
+                        judge j = new judge(1,comboBox1.Text.ToString().Trim());
+                        j.ShowDialog(this);
+                        this.Close(); 
                 }
                 if (comboBox2.Text.ToString().Trim() == "填空题")
                 {
-                    judge j = new judge(2,comboBox1.Text.ToString().Trim());
-                    j.ShowDialog(this);
-                    this.Close();
+                        judge j = new judge(2,comboBox1.Text.ToString().Trim());
+                        j.ShowDialog(this);
+                        this.Close();
                 }
             }
             else if (flag == 2)//删除
             {
                 if (comboBox2.Text.ToString().Trim() == "选择题")
                 {
-                    mycon.Open();
-                    string str = "delete from choice where id=" + int.Parse(textBox1.Text.Trim())
-                        + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
-                    SqlCommand cmd = new SqlCommand(str, mycon);
-                    cmd.ExecuteNonQuery();
-                    mycon.Close();
-                    this.Close();
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "选择题") > 0)
+                    {
+                        mycon.Open();
+                        string str = "delete from choice where id=" + int.Parse(textBox1.Text.Trim())
+                            + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
+                        SqlCommand cmd = new SqlCommand(str, mycon);
+                        cmd.ExecuteNonQuery();
+                        mycon.Close();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("题目不存在");
+                    }
                 }
                 if (comboBox2.Text.ToString().Trim() == "判断题")
                 {
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "判断题") > 0)
+                    {
                     mycon.Open();
                     string str = "delete from judge where id=" + int.Parse(textBox1.Text.Trim())
                         + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
@@ -74,79 +83,158 @@ namespace ExamSystem
                     cmd.ExecuteNonQuery();
                     mycon.Close();
                     this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("题目不存在");
+                    }
                 }
                 if (comboBox2.Text.ToString().Trim() == "填空题")
                 {
-                    mycon.Open();
-                    string str = "delete from filling where id=" + int.Parse(textBox1.Text.Trim())
-                        + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
-                    SqlCommand cmd = new SqlCommand(str, mycon);
-                    cmd.ExecuteNonQuery();
-                    mycon.Close();
-                    this.Close();
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "填空题") > 0)
+                    {
+                        mycon.Open();
+                        string str = "delete from filling where id=" + int.Parse(textBox1.Text.Trim())
+                            + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
+                        SqlCommand cmd = new SqlCommand(str, mycon);
+                        cmd.ExecuteNonQuery();
+                        mycon.Close();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("题目不存在");
+                    }
                 }
             }
             else if (flag == 3)//修改
             {
                 if (comboBox2.Text.ToString().Trim() == "选择题")
                 {
-                    mycon.Open();
-                    SqlDataAdapter sda = new SqlDataAdapter("Select * From choice where id=" + int.Parse(textBox1.Text.Trim()) + " and subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
-                    DataSet Ds = new DataSet();
-                    sda.Fill(Ds, "timu");
-                    string str = "delete from choice where id=" + int.Parse(textBox1.Text.Trim())
-                        + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
-                    SqlCommand cmd = new SqlCommand(str, mycon);
-                    cmd.ExecuteNonQuery();
-                    mycon.Close();
-                    xuanze x = new xuanze(Ds.Tables["timu"].Rows[0].ItemArray[0].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[1].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[2].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[3].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[4].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[5].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[6].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[7].ToString().Trim());
-                    x.ShowDialog(this);
-                    this.Close();
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "选择题") > 0)
+                    {
+                        mycon.Open();
+                        SqlDataAdapter sda = new SqlDataAdapter("Select * From choice where id=" + int.Parse(textBox1.Text.Trim()) + " and subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
+                        DataSet Ds = new DataSet();
+                        sda.Fill(Ds, "timu");
+                        string str = "delete from choice where id=" + int.Parse(textBox1.Text.Trim())
+                            + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
+                        SqlCommand cmd = new SqlCommand(str, mycon);
+                        cmd.ExecuteNonQuery();
+                        mycon.Close();
+                        xuanze x = new xuanze(Ds.Tables["timu"].Rows[0].ItemArray[0].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[1].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[2].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[3].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[4].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[5].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[6].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[7].ToString().Trim());
+                        x.ShowDialog(this);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("题目不存在");
+                    }
                 }
                 if (comboBox2.Text.ToString().Trim() == "判断题")
                 {
-                    mycon.Open();
-                    SqlDataAdapter sda = new SqlDataAdapter("Select * From judge where id=" + int.Parse(textBox1.Text.Trim()) + " and subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
-                    DataSet Ds = new DataSet();
-                    sda.Fill(Ds, "timu");
-                    string str = "delete from judge where id=" + int.Parse(textBox1.Text.Trim())
-                        + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
-                    SqlCommand cmd = new SqlCommand(str, mycon);
-                    cmd.ExecuteNonQuery();
-                    mycon.Close();
-                    judge x = new judge(1,Ds.Tables["timu"].Rows[0].ItemArray[0].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[1].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[2].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[3].ToString().Trim());
-                    x.ShowDialog(this);
-                    this.Close();
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "判断题") > 0)
+                    {
+                        mycon.Open();
+                        SqlDataAdapter sda = new SqlDataAdapter("Select * From judge where id=" + int.Parse(textBox1.Text.Trim()) + " and subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
+                        DataSet Ds = new DataSet();
+                        sda.Fill(Ds, "timu");
+                        string str = "delete from judge where id=" + int.Parse(textBox1.Text.Trim())
+                            + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
+                        SqlCommand cmd = new SqlCommand(str, mycon);
+                        cmd.ExecuteNonQuery();
+                        mycon.Close();
+                        judge x = new judge(1, Ds.Tables["timu"].Rows[0].ItemArray[0].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[1].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[2].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[3].ToString().Trim());
+                        x.ShowDialog(this);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("题目不存在");
+                    }
                 }
                 if (comboBox2.Text.ToString().Trim() == "填空题")
                 {
-                    mycon.Open();
-                    SqlDataAdapter sda = new SqlDataAdapter("Select * From filling where id=" + int.Parse(textBox1.Text.Trim()) + " and subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
-                    DataSet Ds = new DataSet();
-                    sda.Fill(Ds, "timu");
-                    string str = "delete from filling where id=" + int.Parse(textBox1.Text.Trim())
-                        + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
-                    SqlCommand cmd = new SqlCommand(str, mycon);
-                    cmd.ExecuteNonQuery();
-                    mycon.Close();
-                    judge x = new judge(2, Ds.Tables["timu"].Rows[0].ItemArray[0].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[1].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[2].ToString().Trim(),
-                        Ds.Tables["timu"].Rows[0].ItemArray[3].ToString().Trim());
-                    x.ShowDialog(this);
-                    this.Close();
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "填空题") > 0)
+                    {
+                        mycon.Open();
+                        SqlDataAdapter sda = new SqlDataAdapter("Select * From filling where id=" + int.Parse(textBox1.Text.Trim()) + " and subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
+                        DataSet Ds = new DataSet();
+                        sda.Fill(Ds, "timu");
+                        string str = "delete from filling where id=" + int.Parse(textBox1.Text.Trim())
+                            + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
+                        SqlCommand cmd = new SqlCommand(str, mycon);
+                        cmd.ExecuteNonQuery();
+                        mycon.Close();
+                        judge x = new judge(2, Ds.Tables["timu"].Rows[0].ItemArray[0].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[1].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[2].ToString().Trim(),
+                            Ds.Tables["timu"].Rows[0].ItemArray[3].ToString().Trim());
+                        x.ShowDialog(this);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("题目不存在");
+                    }
                 }
             }
+        }
+        public int ishave(int id,string str)
+        {//判断题目是否存在
+                if (str == "选择题")
+                {
+                    mycon.Open();
+                    SqlDataAdapter da = new SqlDataAdapter("select * from choice where id=" + id, mycon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds, "choice");
+                    mycon.Close();
+                    if (ds.Tables["choice"].Rows.Count > 0)
+                    {
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
+                if (str == "填空题")
+                {
+                    mycon.Open();
+                    SqlDataAdapter da = new SqlDataAdapter("select * from filling where id=" + id, mycon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds, "choice");
+                    mycon.Close();
+                    if (ds.Tables["choice"].Rows.Count > 0)
+                    {
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
+                if (str == "判断题")
+                {
+                    mycon.Open();
+                    SqlDataAdapter da = new SqlDataAdapter("select * from judge where id=" + id, mycon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds, "choice");
+                    mycon.Close();
+                    if (ds.Tables["choice"].Rows.Count > 0)
+                    {
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
+                return 0;
         }
     }
 }
