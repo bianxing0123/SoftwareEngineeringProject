@@ -18,13 +18,13 @@ namespace ExamSystem
         public student(int f)
         {
             InitializeComponent();
-            mycon.ConnectionString = "Data Source=GWO-20140219FWK;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=123456";
+            mycon.ConnectionString = "Data Source=DESKTOP-E28V9KP\\SQLEXPRESS;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=sa.123";
             this.f = f;
         }
         public student(int f,string str1,string str2,string str3,string str4)
         {
             InitializeComponent();
-            mycon.ConnectionString = "Data Source=GWO-20140219FWK;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=123456";
+            mycon.ConnectionString = "Data Source=DESKTOP-E28V9KP\\SQLEXPRESS;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=sa.123";
             this.f = f;
             textBox1.Text = str1;
             textBox2.Text = str2;

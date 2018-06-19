@@ -68,7 +68,7 @@ namespace ExamSystem
         public user()
         {
             InitializeComponent();
-            mycon.ConnectionString = "Data Source=GWO-20140219FWK;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=123456";
+            mycon.ConnectionString = "Data Source=DESKTOP-E28V9KP\\SQLEXPRESS;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=sa.123";
         }
 
         public user(string id)
@@ -692,7 +692,7 @@ namespace ExamSystem
             }
             ExamPaper += "\r\n" + answer;
             ExamPaper += "\r\n" + myanswer; 
-            System.IO.File.WriteAllText("D:\\软工\\ExamSystem\\ExamSystem\\生成试卷\\"+textname+".txt",ExamPaper);
+            System.IO.File.WriteAllText("E:\\SoftwareEngineeringProject\\ExamSystem\\ExamSystem\\生成试卷\\"+textname+".txt",ExamPaper);
             Application.Exit(); 
         }
 

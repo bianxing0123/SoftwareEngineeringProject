@@ -14,17 +14,36 @@ namespace ExamSystem
     {
         SqlConnection mycon = new SqlConnection();
         int flag;//1增加判断 2增加填空 
+        int t;
         public judge(int flag,string str)
         {
             InitializeComponent();
-            mycon.ConnectionString = "Data Source=GWO-20140219FWK;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=123456";
+            t = 0;
+            mycon.ConnectionString = "Data Source=DESKTOP-E28V9KP\\SQLEXPRESS;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=sa.123";
             this.flag = flag;
             textBox1.Text = str;
+            mycon.Open();
+            if (flag == 1)
+            {
+                SqlDataAdapter da = new SqlDataAdapter("select * from judge where subject='" + textBox1.Text.ToString().Trim() + "'", mycon);
+                DataSet ds = new DataSet();
+                da.Fill(ds, "judge");
+                textBox2.Text = Convert.ToString(ds.Tables["judge"].Rows.Count + 1);
+            }
+            else if (flag == 2)
+            {
+                SqlDataAdapter da = new SqlDataAdapter("select * from filling where subject='" + textBox1.Text.ToString().Trim() + "'", mycon);
+                DataSet ds = new DataSet();
+                da.Fill(ds, "filling");
+                textBox2.Text = Convert.ToString(ds.Tables["filling"].Rows.Count + 1);
+            }
+            mycon.Close();
         }
         public judge(int flag, string str1,string str2,string str3,string str4)
         {
             InitializeComponent();
-            mycon.ConnectionString = "Data Source=GWO-20140219FWK;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=123456";
+            t = 1;
+            mycon.ConnectionString = "Data Source=DESKTOP-E28V9KP\\SQLEXPRESS;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=sa.123";
             this.flag = flag;
             textBox1.Text = str1;
             textBox2.Text = str2;
@@ -37,41 +56,61 @@ namespace ExamSystem
             if (flag == 1)
             {
                 mycon.Open();
-                SqlDataAdapter da = new SqlDataAdapter("select * from choice where id=" + int.Parse(textBox2.Text.Trim()), mycon);
-                DataSet ds = new DataSet();
-                da.Fill(ds, "choice");
-                if (ds.Tables["choice"].Rows.Count > 0)
+                if (t == 1)
                 {
-                    MessageBox.Show("题号已存在");
-                    mycon.Close();
-                }
-                else
-                {
-                    string str = "insert into judge(subject,id,question,answer) values('" + textBox1.Text.ToString().Trim() + "'," + int.Parse(textBox2.Text.ToString().Trim()) + ",'" + textBox3.Text.ToString().Trim() + "','" + textBox4.Text.ToString().Trim() + "')";
-                    SqlCommand cmd = new SqlCommand(str, mycon);
+                    SqlCommand cmd = new SqlCommand("update judge set question='" + textBox3.Text.ToString().Trim() + "',answer='" + textBox4.Text.ToString().Trim() + "' where id=" + int.Parse(textBox2.Text.Trim()) + " and subject='" + textBox1.Text.ToString().Trim() + "'", mycon);
                     cmd.ExecuteNonQuery();
                     mycon.Close();
                     this.Close();
+                }
+                else
+                {
+                    SqlDataAdapter da = new SqlDataAdapter("select * from judge where id=" + int.Parse(textBox2.Text.Trim()) + " and subject='" + textBox1.Text.ToString().Trim() + "'", mycon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds, "choice");
+                    if (ds.Tables["choice"].Rows.Count > 0)
+                    {
+                        MessageBox.Show("题号已存在");
+                        mycon.Close();
+                    }
+                    else
+                    {
+                        string str = "insert into judge(subject,id,question,answer) values('" + textBox1.Text.ToString().Trim() + "'," + int.Parse(textBox2.Text.ToString().Trim()) + ",'" + textBox3.Text.ToString().Trim() + "','" + textBox4.Text.ToString().Trim() + "')";
+                        SqlCommand cmd = new SqlCommand(str, mycon);
+                        cmd.ExecuteNonQuery();
+                        mycon.Close();
+                        this.Close();
+                    }
                 }
             }
             if (flag == 2)
             {
                 mycon.Open();
-                SqlDataAdapter da = new SqlDataAdapter("select * from choice where id=" + int.Parse(textBox2.Text.Trim()), mycon);
-                DataSet ds = new DataSet();
-                da.Fill(ds, "choice");
-                if (ds.Tables["choice"].Rows.Count > 0)
+                if (t == 1)
                 {
-                    MessageBox.Show("题号已存在");
-                    mycon.Close();
-                }
-                else
-                {
-                    string str = "insert into filling(subject,id,question,answer) values('" + textBox1.Text.ToString().Trim() + "'," + int.Parse(textBox2.Text.ToString().Trim()) + ",'" + textBox3.Text.ToString().Trim() + "','" + textBox4.Text.ToString().Trim() + "')";
-                    SqlCommand cmd = new SqlCommand(str, mycon);
+                    SqlCommand cmd = new SqlCommand("update filling set question='" + textBox3.Text.ToString().Trim() + "',answer='" + textBox4.Text.ToString().Trim() + "' where id=" + int.Parse(textBox2.Text.Trim()) + " and subject='" + textBox1.Text.ToString().Trim() + "'", mycon);
                     cmd.ExecuteNonQuery();
                     mycon.Close();
                     this.Close();
+                }
+                else
+                {
+                    SqlDataAdapter da = new SqlDataAdapter("select * from filling where id=" + int.Parse(textBox2.Text.Trim()) + " and subject='" + textBox1.Text.ToString().Trim() + "'", mycon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds, "choice");
+                    if (ds.Tables["choice"].Rows.Count > 0)
+                    {
+                        MessageBox.Show("题号已存在");
+                        mycon.Close();
+                    }
+                    else
+                    {
+                        string str = "insert into filling(subject,id,question,answer) values('" + textBox1.Text.ToString().Trim() + "'," + int.Parse(textBox2.Text.ToString().Trim()) + ",'" + textBox3.Text.ToString().Trim() + "','" + textBox4.Text.ToString().Trim() + "')";
+                        SqlCommand cmd = new SqlCommand(str, mycon);
+                        cmd.ExecuteNonQuery();
+                        mycon.Close();
+                        this.Close();
+                    }
                 }
             }
         }

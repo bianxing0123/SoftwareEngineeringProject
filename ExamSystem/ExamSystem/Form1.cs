@@ -16,7 +16,7 @@ namespace ExamSystem
         public Form1()
         {
             InitializeComponent();
-            mycon.ConnectionString = "Data Source=GWO-20140219FWK;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=123456";
+            mycon.ConnectionString = "Data Source=DESKTOP-E28V9KP\\SQLEXPRESS;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=sa.123";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -28,7 +28,7 @@ namespace ExamSystem
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Owner.Hide();
+            //this.Owner.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace ExamSystem
                     MessageBox.Show("管理员用户名或密码错误!");
                     mycon.Close();
                 }
-                else if (textBox1.Text == "admin" && textBox1.Text == "admin" && radioButton2.Checked)
+                else if (textBox1.Text == "admin" && textBox2.Text == "admin" && radioButton2.Checked)
                 {
                     MessageBox.Show("管理员登录成功");
                     admin form2 = new admin();

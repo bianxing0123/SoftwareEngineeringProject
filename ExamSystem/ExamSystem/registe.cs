@@ -17,7 +17,7 @@ namespace ExamSystem
         public registe()
         {
             InitializeComponent();
-            mycon.ConnectionString = "Data Source=GWO-20140219FWK;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=123456";
+            mycon.ConnectionString = "Data Source=DESKTOP-E28V9KP\\SQLEXPRESS;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=sa.123";
         }
 
         private void registe_Load(object sender, EventArgs e)

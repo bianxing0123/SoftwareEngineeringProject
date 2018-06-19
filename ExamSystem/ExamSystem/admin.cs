@@ -17,7 +17,7 @@ namespace ExamSystem
         public admin()
         {
             InitializeComponent();
-            mycon.ConnectionString = "Data Source=GWO-20140219FWK;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=123456";
+            mycon.ConnectionString = "Data Source=DESKTOP-E28V9KP\\SQLEXPRESS;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=sa.123";
             showtiku();
         }
 
@@ -29,87 +29,105 @@ namespace ExamSystem
         {
             //选择题
             flag = 1;
+            int[] a=new int[5]{0,0,0,0,0};
             label1.Visible = true;
             comboBox1.Visible = true;
             button1.Visible = true;
             button2.Visible = true;
             button3.Visible = true;
             string str = "";
-            SqlCommand cmd;
-            if (comboBox1.Text.ToString().Trim() == "")
-            {
-                cmd = new SqlCommand("Select * From choice", mycon);
-            }
-            else
-                cmd = new SqlCommand("Select * From choice where subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
-            SqlDataAdapter sda = new SqlDataAdapter();
-            sda.SelectCommand = cmd;
+            string[] sub=new string[5]{"c#","软件测试","图像处理","图形学","嵌入式"};
             DataSet Ds = new DataSet();
-            sda.Fill(Ds, "choice");
-            str += "---------选择题---------\r\n";
-            for (int i = 0; i < Ds.Tables["choice"].Rows.Count; ++i)
+            for (int i = 0; i < 5;++i )
             {
-                str += Ds.Tables["choice"].Rows[i].ItemArray[0];
-                str += " ";
-                str += Ds.Tables["choice"].Rows[i].ItemArray[1];
-                str += ".";
-                str += Ds.Tables["choice"].Rows[i].ItemArray[2];
-                str += "\r\n";
-                str += Ds.Tables["choice"].Rows[i].ItemArray[3];
-                str += "\r\n";
-                str += Ds.Tables["choice"].Rows[i].ItemArray[4];
-                str += "\r\n";
-                str += Ds.Tables["choice"].Rows[i].ItemArray[5];
-                str += "\r\n";
-                str += Ds.Tables["choice"].Rows[i].ItemArray[6];
-                str += "\r\n";
-                str += "正确答案:";
-                str += Ds.Tables["choice"].Rows[i].ItemArray[7];
-                str += "\r\n";
+                SqlDataAdapter da0 = new SqlDataAdapter("select * from choice where subject='"+sub[i]+"'",mycon);
+                da0.Fill(Ds, sub[i]);
+            }
+            switch (comboBox1.Text.ToString().Trim())
+            {
+                case "": a[0] = 1; a[1] = 1; a[2] = 1; a[3] = 1; a[4] = 1; break;
+                case "c#": a[0] = 1; break;
+                case "软件测试": a[1] = 1; break;
+                case "图像处理": a[2] = 1; break;
+                case "图形学": a[3] = 1; break;
+                case "嵌入式": a[4] = 1; break;
+            }
+            str += "---------选择题---------\r\n";
+            for (int j = 0; j < 5; ++j)
+            {
+                if (a[j] == 0)
+                    continue;
+                for (int i = 0; i < Ds.Tables[sub[j]].Rows.Count; ++i)
+                {
+                    str += Ds.Tables[sub[j]].Rows[i].ItemArray[0];
+                    str += " ";
+                    str += Ds.Tables[sub[j]].Rows[i].ItemArray[1];
+                    str += ".";
+                    str += Ds.Tables[sub[j]].Rows[i].ItemArray[2];
+                    str += "\r\n";
+                    str += Ds.Tables[sub[j]].Rows[i].ItemArray[3];
+                    str += "\r\n";
+                    str += Ds.Tables[sub[j]].Rows[i].ItemArray[4];
+                    str += "\r\n";
+                    str += Ds.Tables[sub[j]].Rows[i].ItemArray[5];
+                    str += "\r\n";
+                    str += Ds.Tables[sub[j]].Rows[i].ItemArray[6];
+                    str += "\r\n";
+                    str += "正确答案:";
+                    str += Ds.Tables[sub[j]].Rows[i].ItemArray[7];
+                    str += "\r\n";
+                    str += "\r\n";
+                }
             }
             //判断题
-            SqlCommand cmd1;
-            if (comboBox1.Text.ToString().Trim() == "")
+            DataSet ds1 = new DataSet();
+            for (int i = 0; i < 5; ++i)
             {
-                cmd1 = new SqlCommand("Select * From judge", mycon);
+                SqlDataAdapter da0 = new SqlDataAdapter("select * from judge where subject='" + sub[i] + "'", mycon);
+                da0.Fill(ds1, sub[i]);
             }
-            else
-                cmd1 = new SqlCommand("Select * From judge where subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
-            sda.SelectCommand = cmd1;
-            sda.Fill(Ds, "judge");
             str += "---------判断题---------\r\n";
-            for (int i = 0; i < Ds.Tables["judge"].Rows.Count; ++i)
+            for (int j = 0; j < 5; ++j)
             {
-                str += Ds.Tables["judge"].Rows[i].ItemArray[0];
-                str += " ";
-                str += Ds.Tables["judge"].Rows[i].ItemArray[1];
-                str += ".";
-                str += Ds.Tables["judge"].Rows[i].ItemArray[2];
-                str += " ";
-                str += Ds.Tables["judge"].Rows[i].ItemArray[3];
-                str += "\r\n";
+                if (a[j] == 0)
+                    continue;
+                for (int i = 0; i < ds1.Tables[sub[j]].Rows.Count; ++i)
+                {
+                    str += ds1.Tables[sub[j]].Rows[i].ItemArray[0];
+                    str += " ";
+                    str += ds1.Tables[sub[j]].Rows[i].ItemArray[1];
+                    str += ".";
+                    str += ds1.Tables[sub[j]].Rows[i].ItemArray[2];
+                    str += " ";
+                    str += ds1.Tables[sub[j]].Rows[i].ItemArray[3];
+                    str += "\r\n";
+                    str += "\r\n";
+                }
             }
             //填空题
-            SqlCommand cmd2;
-            if (comboBox1.Text.ToString().Trim() == "")
+            DataSet ds2 = new DataSet();
+            for (int i = 0; i < 5; ++i)
             {
-                cmd2 = new SqlCommand("Select * From filling", mycon);
+                SqlDataAdapter da0 = new SqlDataAdapter("select * from filling where subject='" + sub[i] + "'", mycon);
+                da0.Fill(ds2, sub[i]);
             }
-            else
-                cmd2 = new SqlCommand("Select * From filling where subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
-            sda.SelectCommand = cmd2;
-            sda.Fill(Ds, "filling");
             str += "---------填空题---------\r\n";
-            for (int i = 0; i < Ds.Tables["filling"].Rows.Count; ++i)
+            for (int j = 0; j < 5; ++j)
             {
-                str += Ds.Tables["filling"].Rows[i].ItemArray[0];
-                str += " ";
-                str += Ds.Tables["filling"].Rows[i].ItemArray[1];
-                str += ".";
-                str += Ds.Tables["filling"].Rows[i].ItemArray[2];
-                str += " ";
-                str += Ds.Tables["filling"].Rows[i].ItemArray[3];
-                str += "\r\n";
+                if (a[j] == 0)
+                    continue;
+                for (int i = 0; i < ds2.Tables[sub[j]].Rows.Count; ++i)
+                {
+                    str += ds2.Tables[sub[j]].Rows[i].ItemArray[0];
+                    str += " ";
+                    str += ds2.Tables[sub[j]].Rows[i].ItemArray[1];
+                    str += ".";
+                    str += ds2.Tables[sub[j]].Rows[i].ItemArray[2];
+                    str += " ";
+                    str += ds2.Tables[sub[j]].Rows[i].ItemArray[3];
+                    str += "\r\n";
+                    str += "\r\n";
+                }
             }
             textBox1.Text = str;
             textBox1.Select(0, 0);

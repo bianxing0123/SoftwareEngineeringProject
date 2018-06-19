@@ -17,7 +17,7 @@ namespace ExamSystem
         public temp(int flag)
         {//flag 1增加 2删除 3修改
             InitializeComponent();
-            mycon.ConnectionString = "Data Source=GWO-20140219FWK;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=123456";
+            mycon.ConnectionString = "Data Source=DESKTOP-E28V9KP\\SQLEXPRESS;Initial Catalog=ExamSystem;Persist Security Info=True;User ID=sa;Password=sa.123";
             this.flag = flag;
             if (flag == 1)
             {
@@ -57,7 +57,7 @@ namespace ExamSystem
             {
                 if (comboBox2.Text.ToString().Trim() == "选择题")
                 {
-                    if (ishave(int.Parse(textBox1.Text.Trim()), "选择题") > 0)
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "选择题", comboBox1.Text.ToString().Trim()) > 0)
                     {
                         mycon.Open();
                         string str = "delete from choice where id=" + int.Parse(textBox1.Text.Trim())
@@ -65,6 +65,7 @@ namespace ExamSystem
                         SqlCommand cmd = new SqlCommand(str, mycon);
                         cmd.ExecuteNonQuery();
                         mycon.Close();
+                        changeid("choice", comboBox1.Text.ToString().Trim());
                         this.Close();
                     }
                     else
@@ -74,7 +75,7 @@ namespace ExamSystem
                 }
                 if (comboBox2.Text.ToString().Trim() == "判断题")
                 {
-                    if (ishave(int.Parse(textBox1.Text.Trim()), "判断题") > 0)
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "判断题", comboBox1.Text.ToString().Trim()) > 0)
                     {
                     mycon.Open();
                     string str = "delete from judge where id=" + int.Parse(textBox1.Text.Trim())
@@ -82,6 +83,7 @@ namespace ExamSystem
                     SqlCommand cmd = new SqlCommand(str, mycon);
                     cmd.ExecuteNonQuery();
                     mycon.Close();
+                    changeid("judge", comboBox1.Text.ToString().Trim());
                     this.Close();
                     }
                     else
@@ -91,7 +93,7 @@ namespace ExamSystem
                 }
                 if (comboBox2.Text.ToString().Trim() == "填空题")
                 {
-                    if (ishave(int.Parse(textBox1.Text.Trim()), "填空题") > 0)
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "填空题", comboBox1.Text.ToString().Trim()) > 0)
                     {
                         mycon.Open();
                         string str = "delete from filling where id=" + int.Parse(textBox1.Text.Trim())
@@ -99,6 +101,7 @@ namespace ExamSystem
                         SqlCommand cmd = new SqlCommand(str, mycon);
                         cmd.ExecuteNonQuery();
                         mycon.Close();
+                        changeid("filling", comboBox1.Text.ToString().Trim());
                         this.Close();
                     }
                     else
@@ -111,16 +114,12 @@ namespace ExamSystem
             {
                 if (comboBox2.Text.ToString().Trim() == "选择题")
                 {
-                    if (ishave(int.Parse(textBox1.Text.Trim()), "选择题") > 0)
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "选择题", comboBox1.Text.ToString().Trim()) > 0)
                     {
                         mycon.Open();
                         SqlDataAdapter sda = new SqlDataAdapter("Select * From choice where id=" + int.Parse(textBox1.Text.Trim()) + " and subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
                         DataSet Ds = new DataSet();
                         sda.Fill(Ds, "timu");
-                        string str = "delete from choice where id=" + int.Parse(textBox1.Text.Trim())
-                            + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
-                        SqlCommand cmd = new SqlCommand(str, mycon);
-                        cmd.ExecuteNonQuery();
                         mycon.Close();
                         xuanze x = new xuanze(Ds.Tables["timu"].Rows[0].ItemArray[0].ToString().Trim(),
                             Ds.Tables["timu"].Rows[0].ItemArray[1].ToString().Trim(),
@@ -140,16 +139,12 @@ namespace ExamSystem
                 }
                 if (comboBox2.Text.ToString().Trim() == "判断题")
                 {
-                    if (ishave(int.Parse(textBox1.Text.Trim()), "判断题") > 0)
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "判断题", comboBox1.Text.ToString().Trim()) > 0)
                     {
                         mycon.Open();
                         SqlDataAdapter sda = new SqlDataAdapter("Select * From judge where id=" + int.Parse(textBox1.Text.Trim()) + " and subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
                         DataSet Ds = new DataSet();
                         sda.Fill(Ds, "timu");
-                        string str = "delete from judge where id=" + int.Parse(textBox1.Text.Trim())
-                            + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
-                        SqlCommand cmd = new SqlCommand(str, mycon);
-                        cmd.ExecuteNonQuery();
                         mycon.Close();
                         judge x = new judge(1, Ds.Tables["timu"].Rows[0].ItemArray[0].ToString().Trim(),
                             Ds.Tables["timu"].Rows[0].ItemArray[1].ToString().Trim(),
@@ -165,16 +160,12 @@ namespace ExamSystem
                 }
                 if (comboBox2.Text.ToString().Trim() == "填空题")
                 {
-                    if (ishave(int.Parse(textBox1.Text.Trim()), "填空题") > 0)
+                    if (ishave(int.Parse(textBox1.Text.Trim()), "填空题", comboBox1.Text.ToString().Trim()) > 0)
                     {
                         mycon.Open();
                         SqlDataAdapter sda = new SqlDataAdapter("Select * From filling where id=" + int.Parse(textBox1.Text.Trim()) + " and subject='" + comboBox1.Text.ToString().Trim() + "'", mycon);
                         DataSet Ds = new DataSet();
                         sda.Fill(Ds, "timu");
-                        string str = "delete from filling where id=" + int.Parse(textBox1.Text.Trim())
-                            + " and subject='" + comboBox1.Text.ToString().Trim() + "'";
-                        SqlCommand cmd = new SqlCommand(str, mycon);
-                        cmd.ExecuteNonQuery();
                         mycon.Close();
                         judge x = new judge(2, Ds.Tables["timu"].Rows[0].ItemArray[0].ToString().Trim(),
                             Ds.Tables["timu"].Rows[0].ItemArray[1].ToString().Trim(),
@@ -190,12 +181,12 @@ namespace ExamSystem
                 }
             }
         }
-        public int ishave(int id,string str)
+        public int ishave(int id,string str,string str2)
         {//判断题目是否存在
                 if (str == "选择题")
                 {
                     mycon.Open();
-                    SqlDataAdapter da = new SqlDataAdapter("select * from choice where id=" + id, mycon);
+                    SqlDataAdapter da = new SqlDataAdapter("select * from choice where id=" + id+" and subject='"+str2+"'", mycon);
                     DataSet ds = new DataSet();
                     da.Fill(ds, "choice");
                     mycon.Close();
@@ -209,7 +200,7 @@ namespace ExamSystem
                 if (str == "填空题")
                 {
                     mycon.Open();
-                    SqlDataAdapter da = new SqlDataAdapter("select * from filling where id=" + id, mycon);
+                    SqlDataAdapter da = new SqlDataAdapter("select * from filling where id=" + id + " and subject='" + str2 + "'", mycon);
                     DataSet ds = new DataSet();
                     da.Fill(ds, "choice");
                     mycon.Close();
@@ -223,7 +214,7 @@ namespace ExamSystem
                 if (str == "判断题")
                 {
                     mycon.Open();
-                    SqlDataAdapter da = new SqlDataAdapter("select * from judge where id=" + id, mycon);
+                    SqlDataAdapter da = new SqlDataAdapter("select * from judge where id=" + id + " and subject='" + str2 + "'", mycon);
                     DataSet ds = new DataSet();
                     da.Fill(ds, "choice");
                     mycon.Close();
@@ -235,6 +226,19 @@ namespace ExamSystem
                         return 0;
                 }
                 return 0;
+        }
+        public void changeid(string tablename, string subject)
+        {
+            mycon.Open();
+            SqlDataAdapter da = new SqlDataAdapter("select * from " + tablename + " where subject='" + subject + "'", mycon);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            for (int i = 0; i < ds.Tables[0].Rows.Count; ++i)
+            {
+                SqlCommand cmd = new SqlCommand("update " + tablename + " set id=" + (i + 1) + " where id=" + int.Parse(ds.Tables[0].Rows[i].ItemArray[1].ToString().Trim()) + " and subject='" + subject + "'", mycon);
+                cmd.ExecuteNonQuery();
+            }
+            mycon.Close();
         }
     }
 }
