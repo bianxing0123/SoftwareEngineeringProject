@@ -53,6 +53,11 @@ namespace ExamSystem
             }
             else
             {
+                string aa, bb, cc, dd;
+                aa = "(A)" + textBox4.Text.ToString().Trim();
+                bb = "(B)" + textBox5.Text.ToString().Trim();
+                cc = "(C)" + textBox6.Text.ToString().Trim();
+                dd = "(D)" + textBox7.Text.ToString().Trim();
                 SqlDataAdapter da = new SqlDataAdapter("select * from choice where id=" + int.Parse(textBox2.Text.Trim()) + " and subject='" + textBox1.Text.ToString().Trim() + "'", mycon);
                 DataSet ds = new DataSet();
                 da.Fill(ds, "choice");
@@ -65,8 +70,8 @@ namespace ExamSystem
                 {
                     string str = "insert into choice(subject,id,question,keyA,keyB,keyC,keyD,answer) values('"
                         + textBox1.Text.ToString().Trim() + "','" + int.Parse(textBox2.Text.Trim()) + "','" + textBox3.Text.ToString().Trim() + "','"
-                        + textBox4.Text.ToString().Trim() + "','" + textBox5.Text.ToString().Trim() + "','" + textBox6.Text.ToString().Trim() + "','"
-                        + textBox7.Text.ToString().Trim() + "','" + textBox8.Text.ToString().Trim() + "')";
+                        + aa + "','" + bb + "','" + cc + "','"
+                        + dd + "','" + textBox8.Text.ToString().Trim() + "')";
                     SqlCommand cmd = new SqlCommand(str, mycon);
                     cmd.ExecuteNonQuery();
                     mycon.Close();
