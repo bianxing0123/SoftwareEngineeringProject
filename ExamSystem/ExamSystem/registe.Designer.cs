@@ -83,6 +83,7 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(169, 167);
             this.textBox3.Name = "textBox3";
+            this.textBox3.PasswordChar = '*';
             this.textBox3.Size = new System.Drawing.Size(158, 21);
             this.textBox3.TabIndex = 15;
             // 
@@ -100,6 +101,7 @@
             // 
             this.textBox2.Location = new System.Drawing.Point(169, 115);
             this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(158, 21);
             this.textBox2.TabIndex = 13;
             // 
